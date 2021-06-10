@@ -3,6 +3,7 @@ package ru.netology.web.test;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 import ru.netology.web.data.DataHelper;
+import ru.netology.web.page.ErrorMessage;
 import ru.netology.web.page.LoginPageV1;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -40,10 +41,7 @@ class MoneyTransferTest {
         val moneyTransfer = dashboardPage.firstBill();
         int amount = 35000;
         moneyTransfer.transferMoney(amount, DataHelper.CardNumber.getCardSecond());
-        val balanceSecondBillAfterTransfer = dashboardPage.getSecondCardBalance();
-        val balanceFirstBillAfterTransfer = dashboardPage.getFirstCardBalance();
-        assertEquals((balanceSecondBillBeforeTransfer - amount), balanceSecondBillAfterTransfer);
-        assertEquals((balanceFirstBillBeforeTransfer + amount), balanceFirstBillAfterTransfer);
+        ErrorMessage.errorMassageBalance();
     }
     @Test
     void shouldTransferMoneyFromSecondCardToFirstCardMaxAmount() {
